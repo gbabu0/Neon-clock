@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Clock</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .clock-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #clock {
+            font-size: 3rem;
+            color: red;
+            padding: 20px 40px;
+            border-radius: 10px;
+            background-color: wheat;
+            text-align: center;
+            font-weight: bold;
+            border: 5px solid;
+            border-image-source: linear-gradient(90deg, #00ff00, #ffff00, #ff00ff);
+            border-image-slice: 1;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        @keyframes neon {
+            0% {
+                box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+            }
+            50% {
+                box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+            }
+            100% {
+                box-shadow: 0 0 5px #ffff00, 0 0 10px #ffff00, 0 0 20px #ffff00;
+            }
+        }
+
+        #clock {
+            animation: neon 1.5s ease-in-out infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div id="clock"></div>
+    </div>
+
+    <script>
+          function updateClock(){
+            let currentTime = new Date();
+            let hours = currentTime.getHours();
+            let minutes = currentTime.getMinutes();
+            let seconds = currentTime.getSeconds();
+
+            minutes = (minutes < 10 ? '0': '') +minutes;
+            seconds = (seconds < 10 ? '0' : '') +seconds;
+
+            let sufix = hours >= 12 ? "PM":"AM"
+
+            hours = hours%12
+            hours = hours?hours:12;
+            const clock = document.getElementById('clock')
+            clock.innerHTML = hours+':' +minutes + ':' + seconds + ':' + sufix ;
+
+        }
+        setInterval(updateClock,1000)
+    </script>
+</body>
+</html>
